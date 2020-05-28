@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tweet Effects</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/summary">Project Summary <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/visuals">Visualizations <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/twitteractivity">Twitter Activity <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/predictions">Stock Market Activity <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+          <p><a class="btn btn-primary btn-lg" href="/refresh" role="button">Check for New Tweets</a></p><br>
+
+          <div class='row'>
+            <div class='col-md-6'>
+                <table class = 'table'>
+                  <tr>
+                    
+                <h2 style='text-align: center;'>     Donald Trump - {{accountdata.acct_info['Donald Trump'].username}}  -   <a href="{{accountdata.acct_info['Donald Trump'].userurl}}" target='_blank'><img src="{{accountdata.acct_info['Donald Trump'].profilepic}}" height='50px'></a></h2>
+                    <h5 style='text-align: center;'>President of the United States</h5>
+                  </tr>
+                  <tr>
+                    <th>Twitter Activity</th>
+                    <th>Retweets</th>
+                  </tr>
+                  <tr>
+                    <td>{{tweets.Day0[1].Tweets[0]}}<a href="{{tweets.Day0[1].Link[0]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                    <td>{{tweets.Day0[1].Retweets[0]}}</td>
+
+                  </tr>
+                  
+                  <tr>
+                    <td>{{tweets.Day0[1].Tweets[1]}}<a href="{{tweets.Day0[1].Link[0]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                    <td>{{tweets.Day0[1].Retweets[1]}}</td>
+                  </tr>
+                
+                </table>
+            </div>
+            <div class='col-md-6'>
+              <table class = 'table'>
+                <tr>
+              <h2 style='text-align: center;'>     Elon Musk - {{accountdata.acct_info['Elon Musk'].username}}  -   <a href="{{accountdata.acct_info['Elon Musk'].userurl}}" target='_blank'><img src="{{accountdata.acct_info['Elon Musk'].profilepic}}" height='50px'></a></h2>
+              <h5 style='text-align: center;'>CEO of Tesla Motors</h5>
+                </tr>
+                <tr>
+                  <th>Twitter Activity</th>
+                  {% if othertweets.Day0[1].TSLATweets %}
+
+                  <th>Retweets</th>
+                </tr>
+                <tr>
+                  <td>{{othertweets.Day0[1].TSLATweets[0]}}<a href="{{othertweets.Day0[1].TSLALink[0]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].TSLARetweets[0]}}</td>
+                </tr>
+                <tr>
+                  <td>{{othertweets.Day0[1].TSLATweets[1]}}<a href="{{othertweets.Day0[1].TSLALink[1]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].TSLARetweets[1]}}</td>
+                  {% else %}
+                </tr>
+                
+                <td>No Twitter Activity Today</td>
+                {% endif %}
+              
+              </table>
+            </div>
+          </div>
+          <br>
+            <div class='row'>
+            <div class='col-md-6'>
+              <table class = 'table'>
+                <tr>
+              <h2 style='text-align: center;'>     Steve Forbes - {{accountdata.acct_info['Steve Forbes'].username}}  -   <a href="{{accountdata.acct_info['Steve Forbes'].userurl}}" target='_blank'><img src="{{accountdata.acct_info['Steve Forbes'].profilepic}}" height='50px'></a></h2>
+              <h5 style='text-align: center;'>CEO of Forbes</h5>
+            </th>
+                </tr>
+                <tr>
+                  <th>Twitter Activity</th>
+                  {% if othertweets.Day0[1].BSETweets %}
+
+                  <th>Retweets</th>
+                </tr>
+
+                <tr>
+                  <td>{{othertweets.Day0[1].BSETweets[0]}}<a href="{{othertweets.Day0[1].BSETweets[0]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].BSERetweets[0]}}</td>
+                </tr>
+                <tr>
+                  <td>{{othertweets.Day0[1].BSETweets[1]}}<a href="{{othertweets.Day0[1].BSETweets[1]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].BSERetweets[1]}}</td>
+                  {% else %}
+                </tr>
+                
+                <td>No Twitter Activity Today</td>
+                {% endif %}
+              
+              </table>
+            </div>
+            <div class='col-md-6'>
+              <table class = 'table'>
+                <tr>
+              <h2 style='text-align: center;'>     Marcus Lemonis - {{accountdata.acct_info['Marcus Lemonis'].username}}  -   <a href="{{accountdata.acct_info['Marcus Lemonis'].userurl}}" target='_blank'><img src="{{accountdata.acct_info['Marcus Lemonis'].profilepic}}" height='50px'></a></h2>
+              <h5 style='text-align: center;'>CEO of Camping World</h5>
+            </tr>
+                <tr>
+                  <th>Twitter Activity</th>
+                  {% if othertweets.Day0[1].CWHTweets %}
+
+                  <th>Retweets</th>
+                </tr>
+
+                <tr>
+                  <td>{{othertweets.Day0[1].CWHTweets[0]}}<a href="{{othertweets.Day0[1].CWHTweets[0]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].CWHRetweets[0]}}</td>
+                </tr>
+                <tr>
+                  <td>{{othertweets.Day0[1].CWHTweets[1]}}<a href="{{othertweets.Day0[1].CWHTweets[1]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].CWHRetweets[1]}}</td>
+                  {% else %}
+                </tr>
+                <td>No Twitter Activity Today</td>
+                {% endif %}
+              
+              </table>
+            </div>
+          </div>
+          <br>
+          <div class='row'>
+            <div class='col-md-6'>
+              <table class = 'table'>
+                <tr>
+              <h2 style='text-align: center;'>     Tim Cook - {{accountdata.acct_info['Tim Cook'].username}}  -   <a href="{{accountdata.acct_info['Tim Cook'].userurl}}" target='_blank'><img src="{{accountdata.acct_info['Tim Cook'].profilepic}}" height='50px'></a></h2>
+              <h5 style='text-align: center;'>CEO of Apple</h5>
+                </tr>
+                <tr>
+                  <th>Twitter Activity</th>
+                  {% if othertweets.Day0[1].AAPLTweets %}
+
+                  <th>Retweets</th>
+                </tr>
+
+                <tr>
+                  <td>{{othertweets.Day0[1].AAPLTweets[0]}}<a href="{{othertweets.Day0[1].AAPLTweets[0]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].AAPLRetweets[0]}}</td>
+                </tr>
+                <tr>
+                  <td>{{othertweets.Day0[1].AAPLTweets[1]}}<a href="{{othertweets.Day0[1].AAPLTweets[1]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].AAPLRetweets[1]}}</td>
+                  {% else %}
+                </tr>
+                <td>No Twitter Activity Today</td>
+                {% endif %}
+              
+              </table>
+            </div>
+            <div class='col-md-6'>
+              <table class = 'table'>
+                <tr>
+              <h2 style='text-align: center;'>     Daniel Ek - {{accountdata.acct_info['Daniel Ek'].username}}  -   <a href="{{accountdata.acct_info['Daniel Ek'].userurl}}" target='_blank'><img src="{{accountdata.acct_info['Daniel Ek'].profilepic}}" height='50px'></a></h2>
+              <h5 style='text-align: center;'>CEO of Spotify</h5>
+                </tr>
+                <tr>
+                  <th>Twitter Activity</th>
+                  {% if othertweets.Day0[1].SPOTTweets %}
+
+                  <th>Retweets</th>
+                </tr>
+
+                <tr>
+                  <td>{{othertweets.Day0[1].SPOTTweets[0]}}<a href="{{othertweets.Day0[1].SPOTTweets[0]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].SPOTRetweets[0]}}</td>
+                </tr>
+                <tr>
+                  <td>{{othertweets.Day0[1].SPOTTweets[1]}}<a href="{{othertweets.Day0[1].SPOTTweets[1]}}" target="_blank">  <img src='static/logo.jfif' height=15px> </a></td>
+                  <td>{{othertweets.Day0[1].SPOTRetweets[1]}}</td>
+                  {% else %}
+                </tr>
+                <td>No Twitter Activity Today</td>
+                {% endif %}
+              
+              </table>
+            </div>
+
+
+          
+
+          </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+</body>
+
+</html>
+
