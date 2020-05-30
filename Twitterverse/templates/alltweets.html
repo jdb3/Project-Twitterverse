@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Tweet Effects</title>
+  <title>Twitter Activity</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -22,19 +22,36 @@
             <li class="nav-item">
               <a class="nav-link" href="/summary">Project Summary <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/visuals">Visualizations <span class="sr-only">(current)</span></a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Visualizations
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/visuals">Historical Tweet Data</a>
+                <a class="dropdown-item" href="/wordcloud">Word Clouds</a>
+                <a class="dropdown-item" href="/correlation">Correlations</a>
+                <a class="dropdown-item" href="/casestudy">Case Studies</a>
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/twitteractivity">Twitter Activity <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/predictions">Stock Market Activity <span class="sr-only">(current)</span></a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Stock Market Activity
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/predictions">Donald Trump</a>
+                <a class="dropdown-item" href="/musk">Elon Musk</a>
+                <a class="dropdown-item" href="/forbes">Steve Forbes</a>
+                <a class="dropdown-item" href="/lemonis">Marcus Lemonis</a>
+              </div>
             </li>
           </ul>
         </div>
       </nav>
-          <p><a class="btn btn-primary btn-lg" href="/refresh" role="button">Check for New Tweets</a></p><br>
+          <p><a class="btn btn-primary btn-lg" href="/refresh" role="button">Check for New Tweets</a><i>    &nbsp;&nbsp;   Last Updated ({{tweets.TimeStamp}})</i></p><br>
+          
 
           <div class='row'>
             <div class='col-md-6'>

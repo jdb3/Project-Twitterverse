@@ -8,17 +8,13 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/ThisWeekTweets"
 mongo = PyMongo(app)
 
-#@app.route("/", methods = ["GET"])
-
 @app.route("/")
 def index():
-    #tweetdata = mongo.db.trumptweets.find_one()
     return render_template("index.html")
 
 @app.route("/summary")
 def summary():
-    tweetdata = mongo.db.trumptweets.find_one()
-    return render_template("intro.html", tweets = tweetdata)
+    return render_template("intro.html")
 
 @app.route("/predictions")
 def predictions():
@@ -28,8 +24,19 @@ def predictions():
 
 @app.route("/visuals")
 def visuals():
-    tweetdata = mongo.db.trumptweets.find_one()
-    return render_template("visuals.html", tweets = tweetdata)
+    return render_template("visuals.html")
+
+@app.route("/wordcloud")
+def wordcloud():
+    return render_template("wordcloud.html")
+
+@app.route("/correlation")
+def correlation():
+    return render_template("correlation.html")
+
+@app.route("/casestudy")
+def casestudy():
+    return render_template("casestudy.html")
 
 @app.route("/twitteractivity")
 def alltweets():
@@ -51,20 +58,6 @@ def musk():
     othertweetdata = mongo.db.othertweets.find_one()
     aggtweets = mongo.db.groupedbydate.find()
     return render_template("musk.html", tweets = tweetdata, aggtweets = aggtweets, othertweets = othertweetdata)
-
-@app.route("/cook")
-def cook():
-    tweetdata = mongo.db.trumptweets.find_one()
-    othertweetdata = mongo.db.othertweets.find_one()
-    aggtweets = mongo.db.groupedbydate.find()
-    return render_template("cook.html", tweets = tweetdata, aggtweets = aggtweets, othertweets = othertweetdata)
-
-@app.route("/ek")
-def ek():
-    tweetdata = mongo.db.trumptweets.find_one()
-    othertweetdata = mongo.db.othertweets.find_one()
-    aggtweets = mongo.db.groupedbydate.find()
-    return render_template("ek.html", tweets = tweetdata, aggtweets = aggtweets, othertweets = othertweetdata)
 
 @app.route("/forbes")
 def forbes():
