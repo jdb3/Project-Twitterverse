@@ -55,26 +55,30 @@ def musk():
 @app.route("/cook")
 def cook():
     tweetdata = mongo.db.trumptweets.find_one()
-    aggtweets = mongo.db.groupedbydate.find_one()
-    return render_template("cook.html", tweets = tweetdata, aggtweets = aggtweets)
+    othertweetdata = mongo.db.othertweets.find_one()
+    aggtweets = mongo.db.groupedbydate.find()
+    return render_template("cook.html", tweets = tweetdata, aggtweets = aggtweets, othertweets = othertweetdata)
 
 @app.route("/ek")
 def ek():
     tweetdata = mongo.db.trumptweets.find_one()
-    aggtweets = mongo.db.groupedbydate.find_one()
-    return render_template("ek.html", tweets = tweetdata, aggtweets = aggtweets)
+    othertweetdata = mongo.db.othertweets.find_one()
+    aggtweets = mongo.db.groupedbydate.find()
+    return render_template("ek.html", tweets = tweetdata, aggtweets = aggtweets, othertweets = othertweetdata)
 
 @app.route("/forbes")
 def forbes():
     tweetdata = mongo.db.trumptweets.find_one()
-    aggtweets = mongo.db.groupedbydate.find_one()
-    return render_template("forbes.html", tweets = tweetdata, aggtweets = aggtweets)
+    othertweetdata = mongo.db.othertweets.find_one()
+    aggtweets = mongo.db.groupedbydate.find()
+    return render_template("forbes.html", tweets = tweetdata, aggtweets = aggtweets, othertweets = othertweetdata)
 
 @app.route("/lemonis")
 def lemonis():
     tweetdata = mongo.db.trumptweets.find_one()
-    aggtweets = mongo.db.groupedbydate.find_one()
-    return render_template("lemonis.html", tweets = tweetdata, aggtweets = aggtweets)
+    othertweetdata = mongo.db.othertweets.find_one()
+    aggtweets = mongo.db.groupedbydate.find()
+    return render_template("lemonis.html", tweets = tweetdata, aggtweets = aggtweets, othertweets = othertweetdata)
 
 
 if __name__ == "__main__":
