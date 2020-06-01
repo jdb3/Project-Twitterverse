@@ -1,19 +1,8 @@
 import GetOldTweets3 as got
 from textblob import TextBlob
 import pandas as pd
-import numpy as np
 import datetime
-import time
-import arrow
-import warnings
-import matplotlib
-import matplotlib.pyplot as plt
-import unicodedata
-import time
-from flask import Flask, render_template, redirect
-from flask_pymongo import PyMongo
 import pymongo
-from yahoo_fin import stock_info as si
 import yfinance as yf
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import re as re
@@ -86,11 +75,12 @@ def refresh():
     
     marketdict = {}
     tickerdict = {'^DJI': 'Dow30', '^IXIC': 'NASDAQ', '^GSPC': 'SP500', '^VIX': 'CBOEVolatilityIndex', '^RUT': 'Russell2000'}
-    #timedifference = (4/24)
+    # Time difference only needed in pythonanywhere
+    # timedifference = (4/24)
     now = (datetime.datetime.today() - datetime.timedelta(days=0)).strftime('%m-%d-%Y %I:%M %p')
 
     for tick in tickerdict:
-        #get data on this ticker , end=datelist[0]
+        #get data on this ticker
         tickerData = yf.Ticker(tick)
         #get the historical prices for this ticker
         tickerDf = tickerData.history(period='1d', start= datelist[4])
@@ -105,8 +95,7 @@ def refresh():
         tweets = {}
         stock = {}
         dataframe = df.loc[df['marketdate'] == i]
-        #print(dataframe)
-        #stockdf = tickerDf.loc[tickerDf['Date'] == i]
+        
         
         tweetlist = []
         retweetlist = []
@@ -140,7 +129,6 @@ def refresh():
         
         for ticker in marketdict:
             tickerDF = marketdict[ticker]
-            #marketdict[ticker] = tickerDF
             stockdf = tickerDF.loc[tickerDF['Date'] == i]
             
             for row in stockdf['Open']:
@@ -162,7 +150,7 @@ def refresh():
         
     dicts['TimeStamp'] = now
 
-    conn = 'mongodb+srv://mytweepyapp:Password@twitterverse-z9192.mongodb.net/test?retryWrites=true&w=majority'
+    conn = 'mongodb+srv://mytweepyapp:<password>@twitterverse-z9192.mongodb.net/test?retryWrites=true&w=majority'
     client = pymongo.MongoClient(conn)
 
     # # Define database and collection
@@ -171,7 +159,6 @@ def refresh():
 
     collection.drop()
 
-    #data_dict = df.to_dict(orient='list')
     # insert new data into collection
     collection.insert_one(dicts)
 
@@ -188,9 +175,6 @@ def refresh():
         for tweet in othertweets:
             rows.append([tweet.id, tweet.permalink, tweet.username, tweet.to, tweet.text, tweet.date, tweet.retweets, tweet.favorites, tweet.mentions, tweet.hashtags, tweet.geo])
         odf = pd.DataFrame(rows, columns=["id", "permalink", "username", "to", "text", "date", "retweets", "favorites", "mentions", "hashtags", "geo"])
-        #odf['tweetdate'] = odf['date'].apply(getdate)
-        #odf['tweetdayofweek'] = odf['date'].apply(getdayofweek)
-        #odf['tweethour'] = odf['date'].apply(gethour)
         odf['marketdate'] = odf['date'].apply(findmarketdate)
         odf['polarity'] = odf['text'].apply(getpolarity)
         odf['subjectivity'] = odf['text'].apply(getsubjectivity)
@@ -211,7 +195,6 @@ def refresh():
         tickerDf['Delta'] = round((tickerDf['Close'] - tickerDf['Open']),2)
         tickerDf = tickerDf.reset_index()
         tickerDf = tickerDf.rename(columns={'Date': 'marketdate'})
-        #tickerDf['marketdate'] = tickerDf['Date']
         othermarketdict[CEO] = tickerDf
 
     otherdicts = {}
@@ -222,8 +205,6 @@ def refresh():
         tweets = {}
         stock = {}
         
-        #print(dataframe)
-        #stockdf = tickerDf.loc[tickerDf['Date'] == i]
         for CEO in CEODict:
             dataframe = othertweetdict[CEO].loc[othertweetdict[CEO]['marketdate'] == i]
             tweetlist = []
@@ -258,7 +239,6 @@ def refresh():
 
         for ticker in othermarketdict:
             tickerDF = othermarketdict[ticker]
-            #marketdict[ticker] = tickerDF
             stockdf = tickerDF.loc[tickerDF['marketdate'] == i]
 
             for row in stockdf['Open']:
@@ -301,7 +281,6 @@ def refresh():
     # Clear previous data in collection
     collection.drop()
 
-    #data_dict = df.to_dict(orient='list')
     # insert new data into collection
     collection.insert_one(grouped)
 
@@ -317,10 +296,6 @@ def refresh():
     db = client.ThisWeekTweets
     collection = db.groupedbydate
 
-    # Clear previous data in collection
-    #collection.drop()
-
-    #data_dict = df.to_dict(orient='list')
     # insert new data into collection
     collection.insert_one(othergroupeddict)
 

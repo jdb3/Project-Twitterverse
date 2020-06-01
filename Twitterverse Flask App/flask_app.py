@@ -4,7 +4,7 @@ import updatetweets
 
 app = Flask(__name__)
 
-#app.config["MONGO_URI"] = "mongodb+srv://mytweepyapp:Password@twitterverse-z9192.mongodb.net/test?retryWrites=true&w=majority"
+#app.config["MONGO_URI"] = "mongodb+srv://mytweepyapp:<password>@twitterverse-z9192.mongodb.net/test?retryWrites=true&w=majority"
 app.config["MONGO_URI"] = "mongodb://localhost:27017/ThisWeekTweets"
 mongo = PyMongo(app)
 
